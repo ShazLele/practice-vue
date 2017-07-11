@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="aa">
+        <my-component></my-component>
+
+    </div>
+    <div id="bb">
+        <my-component></my-component>
+        <local-component></local-component>
+    </div>
+
+
+    <div id="cc">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>
+</body>
+<script>
+
+    // 注册全局组件
+    Vue.component("my-component",{
+        template:"<div>A global component!</div>"
+    });
+
+    //data以函数形式返回
+    Vue.component("simple-counter",{
+        template:"<button v-on:click='counter += 1'>{{counter}}</button>",
+        data:function(){
+            return {
+                counter:0
+            }
+        }
+    });
+
+    var a=new Vue({
+        el:"#aa",
+        data:{
+            
+        },
+        methods:{
+            
+        }
+    })
+
+    // 注册局部组件
+    var Child={template:"<div>A local component!</div>"}
+    var b=new Vue({
+        el:"#bb",
+        components:{
+            "local-component":Child
+        }
+    })
+
+
+    var c=new Vue({
+        el:"#cc"
+    })
+    
+</script>
+</html>

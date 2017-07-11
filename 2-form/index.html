@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            单个复选框
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox">{{checked}}</label>
+        </div>
+        
+        <div>
+            多复选框绑定到数组
+            <input type="checkbox" value="1" v-model="checkNum">1
+            <input type="checkbox" value="2" v-model="checkNum">2
+            <input type="checkbox" value="3" v-model="checkNum">3
+            <h4>checkNum: {{checkNum}}</h4>
+        </div>
+        
+        <div>
+            <select v-model="selected">
+                <option value="1">11</option>
+                <option value="2">22</option>
+                <option value="3">33</option>
+            </select>
+            <span>selected:{{selected}}</span>
+        </div>
+
+        <div>
+            <select v-model="selectedArr" multiple>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <span>selected:{{selectedArr}}</span>
+        </div>
+
+        <div>
+            <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+            <span>{{toggle}}</span>
+        </div>
+
+        <div>
+            <input type="number" v-model.number="age">
+            age:{{age}}
+        </div>
+
+
+        <div>
+            <input type="number" v-model.trim="age">
+            age:{{age}}
+        </div>
+
+
+    </div>
+</body>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            checked:false,
+            checkNum:[],
+            selected:"",
+            selectedArr:[],
+
+            toggle:"",
+            a:"aa",
+            b:"bb",
+
+            age:""
+        },
+        methods:{
+            
+        }
+    })
+
+    
+</script>
+</html>

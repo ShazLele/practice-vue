@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="inputVal" @keyup.enter="enterFun(inputVal,$event)">
+        <div @click.stop="enterFun('div',$event)">divtest</div>
+        <input @keyup.enter="alertFun">keyup event</input>
+    </div>
+    <div onclick="testFun('normal',event)">normal</div>
+</body>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            inputVal:""
+        },
+        methods:{
+            enterFun(params,event){
+                var _this=this;
+                alert(params);
+                console.log("event",event);
+                console.log(this);
+                console.log(_this);
+            },
+            alertFun(){
+                console.log("aaa")
+                alert("keyup event");
+            }
+        }
+    })
+
+    // var testFun=function(params,event){
+    //     var _this=this;
+    //     console.log(_this);
+    //     alert(params);
+    //     console.log(event);
+    //     console.log(this);
+    // }
+
+    function testFun(params,event){
+        var _this=this;
+        console.log(_this);
+        alert(params);
+        console.log(event);
+        console.log(this);
+    }
+    
+</script>
+</html>

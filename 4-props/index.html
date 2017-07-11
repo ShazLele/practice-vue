@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="propsVm">
+        <child message="Hello!"></child>
+        <child-camel my-message="camelCase!"></child-camel>
+
+        <input type="text" v-model="parentMsg">
+        <child-camel :my-message="parentMsg"></child-camel>
+    </div>
+</body>
+<script>
+    // 父子组件的解耦提高组件的可重用性和可维护性
+    // 父子组件关系 props down,events up
+    // 父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
+
+    Vue.component("child",{
+        // prop可以用在模板内，也可以在vm实例中使用
+        props:["message"],   //子组件显式声明prop
+        template:'<span>{{message}}</span>'
+    })
+
+    // 当使用非字符串模板时，props的名字会从camelCase转为kebab-case(短横线隔开)
+    // 动态props以v-bind形式传入
+    Vue.component("child-camel",{
+        props:["myMessage"],
+        template:"<span>{{myMessage}}</span>"
+    })
+
+    
+
+    var vm=new Vue({
+        el:"#propsVm",
+        data:{
+            parentMsg:""
+        }
+    })
+
+
+
+</script>
+</html>

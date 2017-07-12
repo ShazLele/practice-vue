@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="counter-event-example">
+        <p>{{total}}</p>
+        <button-counter v-on:increment-event="incrementTotal"></button-counter>
+        <button-counter v-on:increment-event="incrementTotal"></button-counter>
+    </div>
+
+    <div id="sync">
+        [child]
+        <comp :foo.sync="bar"></comp>   
+        <!-- 以上会被扩展为 -->
+        <!-- <comp :foo="bar" @update:foo="val=>bar=val"></comp> -->
+        [father]
+        <div>{{bar}}</div>    
+    </div>
+
+    <div id="form-comp">
+        以下示例相同
+        <div>
+            <input type="text" v-model="something">
+            <input type="text" v-bind:value="something" v-on:input="something=$event.target.value">
+            <!-- 组件中使用时 相当于下面的简写
+            <custom-input v-bind:value="something" v-on:input="something=arguments[0]"></custom-input> -->
+        </div>
+    </div>
+
+    <div id="currency-comp">
+        让组件的v-model生效 应该 1.接受一个value属性 2.在有新的值时触发 input 事件
+        <currency-input v-model="price"></currency-input>
+        <div>{{price}}</div>
+    </div>
+
+</body>
+    <script src="./index.js"></script>
+<script>
+
+</script>
+</html>

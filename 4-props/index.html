@@ -15,6 +15,10 @@
     </div>
 </body>
 <script>
+    //---在 JS 中对象和数组是引用类型，指向同一个内存空间
+    //---如果prop是一个对象或者数组，在子组件中改变它会影响父组件的状态
+
+
     // 父子组件的解耦提高组件的可重用性和可维护性
     // 父子组件关系 props down,events up
     // 父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
@@ -32,7 +36,44 @@
         template:"<span>{{myMessage}}</span>"
     })
 
-    
+    // prop是一个对象而不是字符串数组时，它包含验证要求：
+    // (props会在组件示例创建之前进行校验)
+    // type类型：String Number Boolean Function Object Array Symbol
+    // type也可以是一个自定义构造器函数，使用instanceof检测
+    Vue.component("example",{
+        props:{
+            //基础类型检测('null'指任何类型都可以)
+            propA:Number,
+            // 多种类型
+            propB:[String,Number],
+            // 必传且是字符串
+            propC:{
+                type:String,
+                required:true
+            },
+            // 数字，有默认值
+            propD:{
+                type:Number,
+                default:100
+            },
+            // 数组/对象的默认值应当由一个工厂函数返回
+            propE:{
+                type:Object,
+                default:function(){
+                    return {message:"Hello!"}
+                }
+            },
+            // 自定义验证函数
+            propF:{
+                validator:function(value){
+                    return value > 10
+                }
+            }
+            
+        }
+    })
+
+
 
     var vm=new Vue({
         el:"#propsVm",

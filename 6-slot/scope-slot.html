@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    具名slot将匹配内容片段中有对应slot特性的元素
+
+    仍然可以有一个匿名slot，是默认slot，作为找不到匹配的内容片段的备用插槽。如果没有默认的slot,找不到匹配的内容片段将被抛弃。
+
+    假定有 app-layout 组件 模板为
+    <div class="container">
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <main>
+            <slot></slot>
+        </main>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+ 
+    父组件模板
+    <app-layout>
+        <h1 slot="header">页面标题</h1>
+
+        <p>主要内容段落1</p>
+        <p>主要内容段落2</p>
+
+        <p slot="footer">联系信息</p>
+    </app-layout>
+
+    渲染结果
+    <div class="container">
+        <header>
+            <h1>页面标题</h1>
+        </header>
+        <main>
+            <p>主要内容段落1</p>
+            <p>主要内容段落2</p>
+        </main>
+        <footer>
+            <p>联系信息</p>
+        </footer>
+    </div>
+</body>
+<script>
+   
+</script>
+</html>

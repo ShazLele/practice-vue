@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    混合父组件内容与子组件自己的模板 该过程被称为【内容分发】
+    使用特殊的'<slot>'元素作为原始内容的插槽
+
+    常见错误：试图在父组件模板内将一个指令绑定到子组件的属性/方法
+    <!-- 无效 -->
+    <!-- <child-comp v-show="someChildProperty"></child-comp> -->
+
+    分发内容是在父作用域内编译
+    
+
+</body>
+<script>
+    Vue.component("child-comp",{
+        // 有效，在正确的作用域内
+        template:"<div v-show='someChildProperty'>Child</div>",
+        data:function () {
+            return {
+                someChildProperty:true
+            }
+        }
+    })
+</script>
+</html>

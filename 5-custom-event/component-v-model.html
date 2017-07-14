@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+    <h3>定制组件的v-model</h3>
+    v-model会使用value属性和input事件，特殊输入类型 value属性有其他作用。model选项可以避免这类冲突。
+    <div id="app">
+        <my-checkbox v-model="foo1" value="some value"></my-checkbox>
+        等价于
+        <my-checkbox :checked="foo2" @change="val=>{foo2 = val}" value="some value"></my-checkbox>
+    </div>
+
+</body>
+<script>
+    Vue.component("my-checkbox",{
+        model:{
+            prop:"checked",
+            event:"change"
+        },
+        props:{
+            checked:Boolean,    // 需要显式的声明checked属性
+            value:String    //this allow using the "value" prop for a defferent purpose
+        },
+        data:function () {
+            return {
+                picked:this.checked
+            }
+        },
+        template:"\
+            <div><label>{{value}}</label><input ref='input' type='checkbox' v-model='picked' @change='updateValue'></div>\
+        ",
+        // template:"\
+        //     <div><label>{{value}}</label><input type='radio' v-bind:checked='checked'></div>\
+        // ",
+        methods:{
+            updateValue(){
+                this.$emit('change',this.picked);
+            }
+        }
+    })
+
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            foo1:true,
+            foo2:false
+        }
+    })
+
+
+
+    // ---------------------------------
+    // 非父子组件通信
+    // 使用空Vue实例作为中央事件总线：
+    var bus=new Vue({})
+
+    //触发组件A中的事件
+    bus.$emit('id-delected',1)
+    // 在组件B创建的钩子中监听事件
+    bus.$on('id-selected',function (id) {
+        // body...
+    })
+
+</script>
+</html>
